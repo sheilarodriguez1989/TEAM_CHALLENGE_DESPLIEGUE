@@ -9,6 +9,17 @@ from sklearn.metrics import mean_squared_error, mean_absolute_percentage_error
 
 app = Flask(__name__)
 
+# Cargar el modelo al iniciar la app
+MODEL_PATH = "ad_model.pkl"
+model = None
+
+if os.path.exists(MODEL_PATH):
+    with open(MODEL_PATH, 'rb') as f:
+        model = pickle.load(f)
+else:
+    print("Modelo no encontrado. El endpoint /predict no funcionará hasta que se entrene.")
+
+
 # Endpoint de bienvenida
 @app.route("/", methods=["GET"])
 def hello():
