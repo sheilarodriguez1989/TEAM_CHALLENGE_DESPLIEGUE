@@ -8,7 +8,7 @@ import os
 
 os.chdir(os.path.dirname(__file__))
 
-data = pd.read_csv('data/Advertising.csv', index_col=0)
+data = pd.read_csv('data/Ads_CTR_Optimization_Dataset.csv', index_col=0)
 
 X_train, X_test, y_train, y_test = train_test_split(data.drop(columns=['sales']),
                                                     data['sales'],

@@ -12,7 +12,7 @@ app = Flask(__name__)
 # Endpoint de bienvenida
 @app.route("/", methods=["GET"])
 def hello():
-    return "Bienvenido a mi API del modelo advertising"
+    return "Bienvenido a mi API del modelo Ads CTR Optimization"
 
 # Endpoint de predicción
 @app.route("/api/v1/predict", methods=["GET"])
@@ -33,8 +33,8 @@ def predict():
 # Endpoint de reentrenamiento con nuevos datos
 @app.route("/api/v1/retrain", methods=["GET"])
 def retrain():
-    if os.path.exists("data/Advertising_new.csv"):
-        data = pd.read_csv('data/Advertising_new.csv')
+    if os.path.exists("data/Ads_CTR_Optimization_Dataset_new.csv"):
+        data = pd.read_csv('data/Ads_CTR_Optimization_Dataset_new.csv')
 
         X = data.drop(columns=['sales'])
         y = data['sales']
@@ -60,5 +60,3 @@ if __name__ == "__main__":
     port = int(environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
 
-if __name__=='_main_':
-    app.run(debug=True)
