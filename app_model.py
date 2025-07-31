@@ -12,7 +12,7 @@ app = Flask(__name__)
 # Endpoint de bienvenida
 @app.route("/", methods=["GET"])
 def hello():
-    return "Bienvenido a mi API del modelo Ads CTR Optimization"
+    return "Bienvenido a la API del modelo Ads CTR Optimization del Grupo4 de The Bridge"
 
 # Endpoint de predicción
 @app.route("/api/v1/predict", methods=["GET"])
