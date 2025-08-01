@@ -71,3 +71,19 @@ if __name__ == "__main__":
     port = int(environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
 
+# # Endpoint adicional para mostrar estadísticas del dataset original
+# @app.route("/api/v1/stats", methods=["GET"])
+# def stats():
+#     try:
+#         data = pd.read_csv("data/Ads_CTR_Optimization_Dataset.csv")
+#         stats = {
+#             "total_rows": len(data),
+#             "mean_sales": round(data["sales"].mean(), 2),
+#             "max_sales": round(data["sales"].max(), 2),
+#             "min_sales": round(data["sales"].min(), 2)
+#         }
+#         return jsonify(stats)
+#     except Exception as e:
+#         return jsonify({"error": f"No se pudieron calcular las estadísticas: {str(e)}"}), 500
+
+# URL: https://team-challenge-despliegue-grupo4.onrender.com/api/v1/stats
