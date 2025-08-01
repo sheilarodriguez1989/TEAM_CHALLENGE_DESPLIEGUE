@@ -54,7 +54,7 @@ def predict():
 def retrain():
     global model
 
-    path = "data/Advertising.csv"
+    path = "data/Ads_CTR_Optimization_Dataset_new.csv"
     if os.path.exists(path):
         data = pd.read_csv(path)
 
@@ -79,8 +79,8 @@ def retrain():
         return "<h2>New data for retrain NOT FOUND. Nothing done!</h2>", 404
 
 # Endpoint adicional para mostrar estadísticas del dataset original
-#@app.route("/api/v1/stats", methods=["GET"])
-#def stats():
+@app.route("/api/v1/stats", methods=["GET"])
+def stats():
     try:
         data = pd.read_csv("data/Ads_CTR_Optimization_Dataset.csv")
         stats = {
