@@ -65,7 +65,7 @@ def retrain():
     else:
         return "<h2>New data for retrain NOT FOUND. Nothing done!</h2>", 404
 
-# # Endpoint adicional para mostrar estadísticas del dataset original
+# Endpoint adicional para mostrar estadísticas del dataset original
 @app.route("/api/v1/stats", methods=["GET"])
 def stats():
     try:
