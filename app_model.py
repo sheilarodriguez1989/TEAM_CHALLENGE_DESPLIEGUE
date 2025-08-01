@@ -58,7 +58,7 @@ def retrain():
     if os.path.exists(path):
         data = pd.read_csv(path)
 
-        # ✅ Selección explícita de columnas
+        #Selección explícita de columnas
         X = data[["tv", "radio", "newspaper"]]
         y = data["sales"]
 
