@@ -52,6 +52,9 @@ def predict():
 # Endpoint de reentrenamiento con nuevos datos
 @app.route("/api/v1/retrain", methods=["GET"])
 def retrain():
+
+    global model
+    
     if os.path.exists("data/Ads_CTR_Optimization_Dataset_new.csv"):
         data = pd.read_csv('data/Ads_CTR_Optimization_Dataset_new.csv')
 
