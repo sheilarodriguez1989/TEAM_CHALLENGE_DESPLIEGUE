@@ -52,14 +52,15 @@ def predict():
 # Endpoint de reentrenamiento con nuevos datos
 @app.route("/api/v1/retrain", methods=["GET"])
 def retrain():
-
     global model
-    
-    if os.path.exists("data/Ads_CTR_Optimization_Dataset_new.csv"):
-        data = pd.read_csv('data/Ads_CTR_Optimization_Dataset_new.csv')
 
-        X = data.drop(columns=['sales'])
-        y = data['sales']
+    path = "data/Ads_CTR_Optimization_Dataset_new.csv"
+    if os.path.exists(path):
+        data = pd.read_csv(path)
+
+        # ✅ Selección explícita de columnas
+        X = data[["tv", "radio", "newspaper"]]
+        y = data["sales"]
 
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
         model = Lasso(alpha=6000)
@@ -68,8 +69,9 @@ def retrain():
         rmse = np.sqrt(mean_squared_error(y_test, model.predict(X_test)))
         mape = mean_absolute_percentage_error(y_test, model.predict(X_test))
 
+        # Reentrenar con todo el dataset
         model.fit(X, y)
-        with open('ad_model.pkl', 'wb') as f:
+        with open("ad_model.pkl", "wb") as f:
             pickle.dump(model, f)
 
         return f"Model retrained. New RMSE: {rmse:.2f}, MAPE: {mape:.2%}"
