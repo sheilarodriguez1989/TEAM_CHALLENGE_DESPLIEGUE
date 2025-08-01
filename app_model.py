@@ -28,18 +28,26 @@ def hello():
 # Endpoint de predicción
 @app.route("/api/v1/predict", methods=["GET"])
 def predict():
-    with open('ad_model.pkl', 'rb') as f:
-        model = pickle.load(f)
+    global model
+    if model is None:
+        return jsonify({"error": "Modelo no entrenado. Ejecuta /api/v1/retrain primero."}), 400
 
-    tv = request.args.get('tv', None)
-    radio = request.args.get('radio', None)
-    newspaper = request.args.get('newspaper', None)
+    tv = request.args.get('tv')
+    radio = request.args.get('radio')
+    newspaper = request.args.get('newspaper')
 
     if tv is None or radio is None or newspaper is None:
-        return "Args empty, not enough data to predict", 400
+        return jsonify({"error": "Faltan parámetros: tv, radio, newspaper"}), 400
 
-    prediction = model.predict([[float(tv), float(radio), float(newspaper)]])
-    return jsonify({'predictions': prediction[0]})
+    try:
+        tv = float(tv)
+        radio = float(radio)
+        newspaper = float(newspaper)
+        prediction = model.predict([[tv, radio, newspaper]])
+        return jsonify({'prediction': prediction[0]})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 # Endpoint de reentrenamiento con nuevos datos
 @app.route("/api/v1/retrain", methods=["GET"])
